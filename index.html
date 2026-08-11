@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 Edexcel IAL Mathematics — 2016-2019 Bundle</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: { extend: { fontFamily: { 'arabic': ['Cairo','sans-serif'], 'english': ['Inter','sans-serif'] } } }
+}
+</script>
+<style>
+*{box-sizing:border-box}
+body{font-family:'Cairo',sans-serif;margin:0;background:#f8fafc;transition:background .3s}
+.dark body{background:#0f172a;color:#e2e8f0}
+body.en-mode{font-family:'Inter',sans-serif}
+.correct{background-color:#dcfce7!important;border-color:#16a34a!important}
+.dark .correct{background-color:#052e16!important;border-color:#16a34a!important}
+.incorrect{background-color:#fee2e2!important;border-color:#dc2626!important}
+.dark .incorrect{background-color:#450a0a!important;border-color:#dc2626!important}
+.timer-warning{color:#dc2626!important;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.5}}
+@media print{
+  .no-print{display:none!important}
+  .page-break{page-break-before:always}
+  body{padding-top:0;background:white}
+  .sidebar{display:none}
+  .main-container{margin:0!important}
+  .question-card{break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+}
+.success-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:bold;font-size:.875rem}
+.grade-excellent{background:#dcfce7;color:#166534}
+.grade-good{background:#fef3c7;color:#92400e}
+.grade-pass{background:#dbeafe;color:#1e40af}
+.grade-fail{background:#fee2e2;color:#991b1b}
+.question-card{
+  background:white;border-radius:10px;padding:14px 16px;margin-bottom:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);border-left:4px solid #3b82f6;
+  transition:all .3s;font-size:.87rem;line-height:1.7;scroll-margin-top:80px;
+}
+.dark .question-card{background:#1e293b;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+[dir="rtl"] .question-card{border-left:none;border-right:4px solid #3b82f6}
+.question-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.09);transform:translateY(-1px)}
+.dark .question-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.marks-badge{display:inline-block;background:linear-gradient(135deg,#3b82f6,#60a5fa);color:white;padding:2px 8px;border-radius:10px;font-size:.66rem;font-weight:bold;margin-left:6px}
+.answer-input{border:2px solid #e5e7eb;border-radius:6px;padding:6px 10px;width:100%;max-width:320px;font-family:inherit;font-size:.82rem;transition:all .3s;background:white;color:#1f2937}
+.dark .answer-input{background:#0f172a;color:#e2e8f0;border-color:#334155}
+.answer-input:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.answer-input.is-correct{border-color:#16a34a;background:#f0fdf4}
+.answer-input.is-incorrect{border-color:#dc2626;background:#fef2f2}
+.dark .answer-input.is-correct{background:#052e16}
+.dark .answer-input.is-incorrect{background:#450a0a}
+.section-header{color:white;padding:12px 18px;border-radius:10px;margin-bottom:14px;box-shadow:0 4px 12px rgba(0,0,0,.15);scroll-margin-top:60px}
+.section-header h2{margin:0;font-size:.95rem;font-weight:bold;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.paper-badge{display:inline-block;background:rgba(255,255,255,.25);padding:3px 10px;border-radius:8px;font-size:.72rem}
+.reveal-btn{background:linear-gradient(135deg,#3b82f6,#60a5fa);color:white;border:none;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:.7rem;font-weight:600;transition:all .2s}
+.reveal-btn:hover{transform:scale(1.05);box-shadow:0 2px 8px rgba(59,130,246,.4)}
+.answer-box{background:linear-gradient(135deg,#dbeafe,#bfdbfe);border:2px solid #3b82f6;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:.8rem;color:#1e3a8a}
+.dark .answer-box{background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe}
+.top-nav{position:fixed;top:0;left:0;right:0;background:white;box-shadow:0 2px 10px rgba(0,0,0,.1);z-index:200;padding:5px 10px;border-bottom:2px solid #e5e7eb}
+.dark .top-nav{background:#1e293b;border-bottom-color:#334155}
+.top-nav-container{max-width:1500px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.nav-title{font-weight:bold;color:#3b82f6;font-size:.78rem;white-space:nowrap}
+.dark .nav-title{color:#60a5fa}
+.nav-links{display:flex;gap:3px;flex-wrap:wrap}
+.nav-link{padding:3px 7px;background:#f3f4f6;color:#4b5563;border-radius:6px;text-decoration:none;font-size:.64rem;font-weight:600;transition:all .2s;white-space:nowrap}
+.dark .nav-link{background:#334155;color:#cbd5e1}
+.nav-link:hover{background:#dbeafe;color:#3b82f6}
+.dark .nav-link:hover{background:#1e3a8a;color:#60a5fa}
+.progress-container{flex:1;min-width:70px;max-width:180px;display:flex;align-items:center;gap:6px}
+.progress-bar-wrapper{flex:1;height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden}
+.dark .progress-bar-wrapper{background:#334155}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);transition:width .3s;border-radius:3px}
+.progress-text{font-size:.66rem;color:#6b7280;font-weight:600;white-space:nowrap}
+.sidebar{position:fixed;top:55px;right:10px;width:235px;max-height:calc(100vh - 70px);overflow-y:auto;background:white;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.1);padding:10px;z-index:100;font-size:.66rem}
+.dark .sidebar{background:#1e293b;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+[dir="ltr"] .sidebar{right:auto;left:10px}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px}
+.dark .sidebar::-webkit-scrollbar-thumb{background:#475569}
+.sidebar-title{font-weight:bold;color:#3b82f6;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #e5e7eb;font-size:.74rem}
+.dark .sidebar-title{color:#60a5fa;border-bottom-color:#334155}
+.sidebar-session{font-weight:bold;color:white;padding:4px 8px;margin:6px 0 3px;border-radius:6px;font-size:.68rem;background:#3b82f6}
+.sidebar-link{display:flex;align-items:center;gap:4px;padding:2px 8px;color:#6b7280;text-decoration:none;border-radius:4px;font-size:.63rem;margin:1px 0;transition:all .2s}
+.dark .sidebar-link{color:#94a3b8}
+.sidebar-link:hover{background:#dbeafe;color:#3b82f6}
+.dark .sidebar-link:hover{background:#1e3a8a;color:#60a5fa}
+.sidebar-link.answered{font-weight:bold;color:#3b82f6}
+.sidebar-link.correct::before{content:'✓';color:#16a34a;font-weight:bold}
+.sidebar-link.incorrect::before{content:'✗';color:#dc2626;font-weight:bold}
+body{padding-top:55px}
+@media(min-width:1350px){
+  .main-container{margin-right:255px;margin-left:16px}
+  [dir="ltr"] .main-container{margin-left:255px;margin-right:16px}
+}
+@media(max-width:1349px){.sidebar{display:none}}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin:10px 0}
+.stat-card{background:white;border-radius:8px;padding:10px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.dark .stat-card{background:#1e293b}
+.stat-number{font-size:1.2rem;font-weight:bold;color:#3b82f6}
+.dark .stat-number{color:#60a5fa}
+.stat-label{font-size:.62rem;color:#6b7280}
+.dark .stat-label{color:#94a3b8}
+.btn-action{padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;border:none;transition:all .3s}
+.btn-action:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.btn-action:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.lang-switch{display:flex;gap:3px;border:2px solid #3b82f6;border-radius:25px;padding:3px;background:white}
+.dark .lang-switch{background:#1e293b;border-color:#60a5fa}
+.lang-btn{padding:4px 10px;border-radius:18px;cursor:pointer;font-weight:bold;transition:all .3s;border:none;font-size:.75rem;background:transparent;color:#6b7280}
+.dark .lang-btn{color:#94a3b8}
+.lang-btn.active{background:#3b82f6;color:white}
+.svg-figure{background:#eff6ff;border:2px dashed #3b82f6;border-radius:8px;padding:8px;margin:8px 0;text-align:center}
+.dark .svg-figure{background:#1e3a8a;border-color:#60a5fa}
+.svg-figure svg{max-width:100%;height:auto}
+.svg-caption{font-size:.65rem;color:#1d4ed8;font-weight:600;margin-top:4px}
+.dark .svg-caption{color:#93c5fd}
+.floating-nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:white;border-radius:50px;box-shadow:0 8px 24px rgba(0,0,0,.2);padding:8px 16px;display:flex;gap:8px;z-index:100}
+.dark .floating-nav{background:#1e293b}
+.floating-btn{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;font-size:1.1rem;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.floating-btn:hover{transform:scale(1.1)}
+.floating-btn.primary{background:#3b82f6;color:white}
+.floating-btn.secondary{background:#f3f4f6;color:#4b5563}
+.dark .floating-btn.secondary{background:#334155;color:#e2e8f0}
+.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#3b82f6;color:white;padding:10px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:1000;font-weight:600;font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-backdrop.show{opacity:1;pointer-events:auto}
+.modal-content{background:white;border-radius:16px;padding:24px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.3);transform:scale(.9);transition:transform .3s}
+.dark .modal-content{background:#1e293b;color:#e2e8f0}
+.modal-backdrop.show .modal-content{transform:scale(1)}
+.timer-display{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:white;padding:8px 20px;border-radius:50px;font-weight:bold;font-family:monospace;font-size:1.3rem;box-shadow:0 4px 12px rgba(59,130,246,.3)}
+.timer-display.warning{background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 4px 12px rgba(220,38,38,.3);animation:pulse 1s infinite}
+.answered-counter{display:inline-block;background:#3b82f6;color:white;padding:1px 6px;border-radius:10px;font-size:.6rem;margin-right:4px;min-width:16px;text-align:center}
+.data-table{border-collapse:collapse;margin:6px auto;font-size:.75rem}
+.data-table td,.data-table th{border:1px solid #94a3b8;padding:3px 8px;text-align:center}
+.hidden{display:none!important}
+</style>
+</head>
+<body class="text-gray-800 min-h-screen">
+<nav class="top-nav no-print">
+  <div class="top-nav-container">
+    <div class="nav-title">🎓 Edexcel IAL Math 2016-2019</div>
+    <div class="nav-links">
+      <a href="#c4_jun19" class="nav-link">∫ C4</a>
+      <a href="#m2_jan19" class="nav-link">🏗️ M2</a>
+      <a href="#m1_jun19" class="nav-link">⚖️ M1</a>
+      <a href="#s2_oct16" class="nav-link">📈 S2</a>
+      <a href="#c12_oct16" class="nav-link">∑ C12</a>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar-wrapper"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+      <span class="progress-text" id="progressText">0%</span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <div class="timer-display" id="timerDisplay">08:00:00</div>
+      <button onclick="toggleTimer()" id="timerToggle" class="floating-btn secondary no-print" title="إيقاف/تشغيل">⏸️</button>
+      <button onclick="scrollToTop()" class="floating-btn secondary no-print" title="الذهاب للأعلى">⬆️</button>
+      <button onclick="toggleDarkMode()" class="floating-btn secondary no-print" title="الوضع الليلي" id="darkModeBtn">🌙</button>
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
+        <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<aside class="sidebar no-print" id="sidebar"></aside>
+<div class="main-container">
+  <div class="max-w-4xl mx-auto mb-3 text-center no-print" style="margin-top:12px;">
+    <div class="bg-white dark:bg-slate-800 p-3 rounded-xl shadow-md inline-block border-2 border-blue-100">
+      <span class="text-gray-600 dark:text-gray-300 text-sm" id="time-label">⏱️ الوقت المتبقي:</span>
+    </div>
+  </div>
+  <div class="max-w-4xl mx-auto mb-3 no-print">
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-number">5</div><div class="stat-label" id="st-papers">أوراق امتحانية</div></div>
+      <div class="stat-card"><div class="stat-number" id="total-questions-count">0</div><div class="stat-label" id="st-questions">سؤال</div></div>
+      <div class="stat-card"><div class="stat-number" id="answered-count">0</div><div class="stat-label" id="st-answered">مُجاب</div></div>
+      <div class="stat-card"><div class="stat-number">425</div><div class="stat-label" id="st-marks">درجة</div></div>
+    </div>
+  </div>
+  <div class="max-w-4xl mx-auto mb-3 flex flex-wrap gap-2 justify-center no-print">
+    <button onclick="toggleAllAnswers()" class="btn-action bg-blue-600 hover:bg-blue-700 text-white" id="btn-toggle">👁️ إظهار/إخفاء الإجابات</button>
+    <button onclick="window.print()" class="btn-action bg-gray-800 hover:bg-gray-900 text-white" id="btn-print">🖨️ طباعة</button>
+    <button onclick="expandAll()" class="btn-action bg-teal-600 hover:bg-teal-700 text-white" id="btn-expand">📂 فتح الكل</button>
+    <button onclick="collapseAll()" class="btn-action bg-amber-600 hover:bg-amber-700 text-white" id="btn-collapse">📁 طي الكل</button>
+    <button onclick="exportData()" class="btn-action bg-indigo-600 hover:bg-indigo-700 text-white" id="btn-export">💾 تصدير</button>
+    <button onclick="confirmReset()" class="btn-action bg-red-600 hover:bg-red-700 text-white" id="btn-reset">🔄 إعادة تعيين</button>
+  </div>
+  <header class="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-4 rounded-xl shadow-md mb-4 border-r-4 border-blue-600">
+    <div class="text-center">
+      <h1 class="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100 mb-1" id="h-title">🎓 Edexcel International Advanced Level Mathematics</h1>
+      <h2 class="text-sm text-blue-600 font-semibold" id="h-sub">2016-2019 Bundle — C12, M1, S2, C4, M2</h2>
+      <p class="text-xs text-gray-600 dark:text-gray-400 mt-1" id="h-papers">5 Papers | Total Marks: 425</p>
+      <p class="text-xs text-orange-600 mt-1 font-semibold" id="h-warn">⚠️ Calculators allowed | Formulae booklet provided</p>
+    </div>
+    <div class="mt-3 flex flex-wrap justify-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+      <span>👤 <input type="text" id="studentName" class="border-b border-gray-400 bg-transparent w-24 text-center dark:text-gray-100" placeholder="الاسم" oninput="saveStudentInfo()"></span>
+      <span>🏫 <input type="text" id="studentClass" class="border-b border-gray-400 bg-transparent w-20 text-center dark:text-gray-100" placeholder="الشعبة" oninput="saveStudentInfo()"></span>
+      <span>📅 <input type="text" id="examDate" class="border-b border-gray-400 bg-transparent w-20 text-center dark:text-gray-100" placeholder="التاريخ" oninput="saveStudentInfo()"></span>
+    </div>
+  </header>
+  <main class="max-w-4xl mx-auto space-y-4" id="exam-content"></main>
+  <div class="text-center no-print pb-4 mt-4">
+    <button onclick="gradeExam()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-base px-8 py-3 rounded-xl font-bold shadow-xl transition transform hover:scale-105 cursor-pointer" id="btn-submit">📝 تسليم وتصحيح الامتحان</button>
+  </div>
+  <div id="results-panel" class="max-w-4xl mx-auto mt-4 bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-2xl border-t-4 border-blue-500 hidden no-print">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 text-center" id="res-title">📊 نتائج الامتحان</h2>
+    <div class="grid md:grid-cols-3 gap-3 mb-3">
+      <div class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-xl text-center"><p class="text-xs dark:text-gray-300" id="rl-name">اسم الطالب</p><p id="res-name" class="font-bold text-lg text-indigo-700 dark:text-indigo-300">-</p></div>
+      <div class="bg-purple-50 dark:bg-purple-900/30 p-3 rounded-xl text-center"><p class="text-xs dark:text-gray-300" id="rl-date">التاريخ</p><p id="res-date" class="font-bold text-lg text-purple-700 dark:text-purple-300">-</p></div>
+      <div class="bg-emerald-50 dark:bg-emerald-900/30 p-3 rounded-xl text-center"><p class="text-xs dark:text-gray-300" id="rl-total">المجموع</p><p id="res-total" class="font-bold text-xl text-emerald-600">0/0</p></div>
+    </div>
+    <div class="text-center mb-3">
+      <span id="success-badge" class="success-badge grade-excellent">-</span>
+      <p id="success-percent" class="text-2xl font-bold text-emerald-600 mt-1">0%</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400" id="rl-rate">نسبة النجاح</p>
+    </div>
+    <div class="flex gap-3 justify-center flex-wrap">
+      <button onclick="window.print()" class="bg-gray-700 text-white px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer" id="btn-printres">🖨️ طباعة النتائج</button>
+      <button onclick="shareResults()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer" id="btn-share">📤 مشاركة</button>
+    </div>
+  </div>
+  <footer class="max-w-4xl mx-auto mt-6 mb-4 text-center text-gray-500 dark:text-gray-400 text-xs no-print">
+    © Pearson Edexcel International Advanced Level Mathematics — 2016-2019<br>
+    Prepared by <strong>Mr. Mohammed Hesham</strong>
+  </footer>
+</div>
+<div class="floating-nav no-print">
+  <button onclick="navigateQuestion(-1)" class="floating-btn secondary" title="السؤال السابق">⬅️</button>
+  <button onclick="navigateQuestion(1)" class="floating-btn secondary" title="السؤال التالي">➡️</button>
+</div>
+<div class="modal-backdrop" id="resetModal">
+  <div class="modal-content">
+    <h3 class="text-lg font-bold mb-3" id="modal-title">⚠️ تأكيد إعادة التعيين</h3>
+    <p class="text-sm mb-4 dark:text-gray-300" id="modal-message">سيتم حذف جميع إجاباتك. هل أنت متأكد؟</p>
+    <div class="flex gap-3 justify-end">
+      <button onclick="closeModal()" class="btn-action bg-gray-300 dark:bg-slate-700 text-gray-800 dark:text-gray-200">إلغاء</button>
+      <button onclick="resetExam()" class="btn-action bg-red-600 text-white">نعم، احذف</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let currentLang = 'ar';
+let answersVisible = false;
+let timeRemaining = 8 * 60 * 60; 
+let timerInterval = null;
+let timerRunning = true;
+let currentQuestionIndex = 0;
+let allQuestions = [];
+
+const STORAGE_KEY = 'edexcel_ial_math_2016_2019_bundle';
+
+/* ═══════════ SVG FIGURES ═══════════ */
+const SVG_FIGURES = {
+  c12_q3: `<div class="svg-figure"><svg viewBox="0 0 250 150" width="250">
+    <path d="M 50 130 L 50 50 A 80 80 0 0 1 130 130 Z" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="130" y="50" width="60" height="80" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <text x="40" y="145" font-size="12">P</text><text x="125" y="145" font-size="12">O</text><text x="195" y="145" font-size="12">Q</text>
+    <text x="125" y="45" font-size="12">A</text><text x="195" y="45" font-size="12">B</text><text x="25" y="90" font-size="12">C</text>
+  </svg><div class="svg-caption" data-cap-ar="س3: شكل يتكون من مثلث وقطاع ومستطيل" data-cap-en="Q3: Shape with triangle, sector and rectangle">س3: شكل يتكون من مثلث وقطاع ومستطيل</div></div>`,
+
+  m1_q4: `<div class="svg-figure"><svg viewBox="0 0 300 100" width="300">
+    <line x1="20" y1="50" x2="280" y2="50" stroke="#3b82f6" stroke-width="3"/>
+    <polygon points="90,40 90,60 80,50" fill="#3b82f6"/><text x="85" y="35" font-size="12">C</text>
+    <polygon points="210,40 210,60 220,50" fill="#3b82f6"/><text x="215" y="35" font-size="12">D</text>
+    <text x="10" y="45" font-size="12">A</text><text x="285" y="45" font-size="12">B</text>
+    <text x="40" y="70" font-size="10">1.5 m</text><text x="230" y="70" font-size="10">2 m</text>
+    <circle cx="90" cy="40" r="5" fill="#dc2626"/><text x="80" y="30" font-size="10">8 kg</text>
+  </svg><div class="svg-caption" data-cap-ar="س4: لوح AB على دعامتين C و D" data-cap-en="Q4: Plank AB on supports C and D">س4: لوح AB على دعامتين C و D</div></div>`,
+
+  s1_q1: `<div class="svg-figure"><svg viewBox="0 0 250 150" width="250">
+    <line x1="20" y1="130" x2="230" y2="130" stroke="#334155" stroke-width="1.5"/>
+    <line x1="20" y1="130" x2="20" y2="10" stroke="#334155" stroke-width="1.5"/>
+    <rect x="40" y="80" width="30" height="50" fill="#3b82f6" fill-opacity="0.5"/>
+    <rect x="80" y="50" width="30" height="80" fill="#3b82f6" fill-opacity="0.5"/>
+    <rect x="120" y="30" width="30" height="100" fill="#3b82f6" fill-opacity="0.5"/>
+    <text x="10" y="145" font-size="12">0</text><text x="75" y="145" font-size="12">2</text><text x="115" y="145" font-size="12">3</text>
+    <text x="5" y="10" font-size="12">Freq Density</text><text x="120" y="145" font-size="12">Weight (g)</text>
+  </svg><div class="svg-caption" data-cap-ar="س1: مدرج تكراري لأوزان الطماطم" data-cap-en="Q1: Histogram of tomato weights">س1: مدرج تكراري لأوزان الطماطم</div></div>`,
+
+  c4_q2: `<div class="svg-figure"><svg viewBox="0 0 250 150" width="250">
+    <line x1="20" y1="130" x2="230" y2="130" stroke="#334155" stroke-width="1.5"/>
+    <line x1="20" y1="130" x2="20" y2="10" stroke="#334155" stroke-width="1.5"/>
+    <path d="M 20 130 Q 80 40 140 90 T 220 50" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <text x="10" y="145" font-size="12">O</text><text x="120" y="145" font-size="12">x</text><text x="5" y="70" font-size="12">y</text>
+    <text x="100" y="80" font-size="12">R</text>
+  </svg><div class="svg-caption" data-cap-ar="س2: المنطقة R تحت المنحنى" data-cap-en="Q2: Region R under the curve">س2: المنطقة R تحت المنحنى</div></div>`,
+
+  m2_q4: `<div class="svg-figure"><svg viewBox="0 0 250 150" width="250">
+    <circle cx="125" cy="75" r="60" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="155" cy="75" r="30" fill="#f8fafc" stroke="#dc2626" stroke-width="2" stroke-dasharray="4"/>
+    <line x1="65" y1="75" x2="185" y2="75" stroke="#334155" stroke-width="1" stroke-dasharray="2"/>
+    <text x="55" y="70" font-size="12">A</text><text x="190" y="70" font-size="12">B</text><text x="120" y="65" font-size="12">O</text><text x="150" y="65" font-size="12">C</text>
+  </svg><div class="svg-caption" data-cap-ar="س4: صفيحة مع ثقب دائري" data-cap-en="Q4: Lamina with circular hole">س4: صفيحة مع ثقب دائري</div></div>`,
+
+  m2_q8: `<div class="svg-figure"><svg viewBox="0 0 250 150" width="250">
+    <line x1="20" y1="130" x2="230" y2="130" stroke="#334155" stroke-width="1.5"/>
+    <line x1="20" y1="130" x2="120" y2="50" stroke="#3b82f6" stroke-width="3"/>
+    <path d="M 120 50 Q 160 20 200 130" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4"/>
+    <text x="10" y="145" font-size="12">A</text><text x="115" y="45" font-size="12">B</text><text x="205" y="145" font-size="12">C</text>
+    <text x="60" y="100" font-size="12">20°</text>
+  </svg><div class="svg-caption" data-cap-ar="س8: منحدر وقذيفة" data-cap-en="Q8: Ramp and projectile">س8: منحدر وقذيفة</div></div>`
+};
+
+const T = {
+  time_label:{ar:'⏱️ الوقت المتبقي:',en:'⏱️ Time Remaining:'},
+  st_papers:{ar:'أوراق امتحانية',en:'Exam Papers'},
+  st_questions:{ar:'سؤال',en:'Questions'},
+  st_answered:{ar:'مُجاب',en:'Answered'},
+  st_marks:{ar:'درجة',en:'Marks'},
+  btn_toggle:{ar:'👁️ إظهار/إخفاء الإجابات',en:'👁️ Show/Hide Answers'},
+  btn_print:{ar:'🖨️ طباعة',en:'🖨️ Print'},
+  btn_expand:{ar:'📂 فتح الكل',en:'📂 Expand All'},
+  btn_collapse:{ar:'📁 طي الكل',en:'📁 Collapse All'},
+  btn_submit:{ar:'📝 تسليم وتصحيح الامتحان',en:'📝 Submit & Grade Exam'},
+  btn_export:{ar:'💾 تصدير',en:'💾 Export'},
+  btn_reset:{ar:'🔄 إعادة تعيين',en:'🔄 Reset'},
+  btn_share:{ar:'📤 مشاركة',en:'📤 Share'},
+  h_title:{ar:'🎓 Edexcel International Advanced Level Mathematics',en:'🎓 Edexcel International Advanced Level Mathematics'},
+  h_sub:{ar:'2016-2019 Bundle — C12, M1, S2, C4, M2',en:'2016-2019 Bundle — C12, M1, S2, C4, M2'},
+  h_papers:{ar:'5 أوراق | المجموع: 425 درجة',en:'5 Papers | Total Marks: 425'},
+  h_warn:{ar:'⚠️ الآلة الحاسبة مسموحة | كتيب الصيغ متوفر',en:'⚠️ Calculators allowed | Formulae booklet provided'},
+  ph_name:{ar:'الاسم',en:'Name'},
+  ph_class:{ar:'الشعبة',en:'Class'},
+  ph_date:{ar:'التاريخ',en:'Date'},
+  res_title:{ar:'📊 نتائج الامتحان',en:'📊 Exam Results'},
+  rl_name:{ar:'اسم الطالب',en:'Student Name'},
+  rl_date:{ar:'التاريخ',en:'Date'},
+  rl_total:{ar:'المجموع',en:'Total'},
+  rl_rate:{ar:'نسبة النجاح',en:'Success Rate'},
+  btn_printres:{ar:'🖨️ طباعة النتائج',en:'🖨️ Print Results'},
+  sidebar_title:{ar:'📑 فهرس الأسئلة',en:'📑 Questions Index'},
+  marks:{ar:'درجة',en:'marks'},
+  answer_ph:{ar:'اكتب الإجابة هنا...',en:'Type answer here...'},
+  q_word:{ar:'السؤال',en:'Question'},
+  questions_word:{ar:'سؤال',en:'Questions'},
+  grade_excellent:{ar:'ممتاز 🌟',en:'Excellent 🌟'},
+  grade_good:{ar:'جيد جداً 👍',en:'Very Good 👍'},
+  grade_pass:{ar:'جيد ✓',en:'Good ✓'},
+  grade_fail:{ar:'يحتاج تحسين 📚',en:'Needs Improvement 📚'},
+  timeup:{ar:'انتهى الوقت!',en:"Time's up!"},
+  student_default:{ar:'طالب',en:'Student'},
+  reset_title:{ar:'⚠️ تأكيد إعادة التعيين',en:'⚠️ Confirm Reset'},
+  reset_message:{ar:'سيتم حذف جميع إجاباتك. هل أنت متأكد؟',en:'All your answers will be deleted. Are you sure?'},
+  reset_success:{ar:'✅ تم إعادة التعيين بنجاح',en:'✅ Reset successful'},
+  save_success:{ar:'💾 تم الحفظ تلقائياً',en:'💾 Saved automatically'},
+  export_success:{ar:'💾 تم التصدير بنجاح',en:'💾 Exported successfully'},
+  copy_success:{ar:'📋 تم النسخ!',en:'📋 Copied!'}
+};
+
+/* ═══════════════════════ EXAM DATA ═══════════════════════ */
+const examData = [
+  /* ═══════ CORE MATHEMATICS C4 (Jun 2019) ═══════ */
+  {id:'c4_jun19',title:{ar:'∫ Core Mathematics C4 (Jun 2019)',en:'∫ Core Mathematics C4 (Jun 2019)'},tier:'ial',color:'#ec4899',code:{ar:'6666/01 — ساعة ونصف — 75 درجة',en:'6666/01 — 1h 30m — 75 Marks'},questions:[
+    {q:{ar:'مفكوك (1+ax)^(2/3) حتى الحد في x² هو 1 + 1/2 x + kx². (أ) أوجد a. (ب) أوجد k. (ج) أوجد معامل x² في مفكوك (4-9x)(1+ax)^(2/3).',en:'The binomial expansion of (1+ax)^(2/3) up to x² is 1 + 1/2 x + kx². (a) Find a. (b) Find k. (c) Find the coefficient of x² in (4-9x)(1+ax)^(2/3).'},m:6,a:'depends',e:{ar:'(أ) a=3/4 (ب) k=-1/16 (ج) -1/4',en:'(a) a=3/4 (b) k=-1/16 (c) -1/4'}},
+    {q:{ar:'المنحنى y = sin(2x)/sin(x) لـ 0 < x < π/2. المنطقة R محصورة بالمنحنى ومحور x والخط x=π/3. (أ) استخدم قاعدة شبه المنحرف لتقدير المساحة. (ب) استخدم التفاضل والتكامل لإيجاد المساحة الدقيقة على الصورة a + b√3.',en:'Curve y = sin(2x)/sin(x) for 0 < x < π/2. Region R bounded by curve, x-axis, x=π/3. (a) Use trapezium rule to estimate area. (b) Use calculus to find exact area in form a + b√3.'},m:7,a:'depends',svg:'c4_q2',e:{ar:'(ب) 1/2 + √3/4',en:'(b) 1/2 + √3/4'}},
+    {q:{ar:'المنحنى C معادلته x² - y³ - x - x sin(πy) = -2. (أ) أوجد dy/dx بدلالة x و y. (ب) المماس عند P(3,2) يقطع محور y عند Q. أوجد إحداثي y لـ Q.',en:'Curve C has equation x² - y³ - x - x sin(πy) = -2. (a) Find dy/dx in terms of x and y. (b) Tangent at P(3,2) meets y-axis at Q. Find y-coord of Q.'},m:8,a:'depends',e:{ar:'(ب) y = 2 + 2/π',en:'(b) y = 2 + 2/π'}},
+    {q:{ar:'المنحنى y = 8/(5x+2)^(3/2). المنطقة R محصورة بـ x=-1، x=1/2، ومحور x. أوجد حجم الدوران عند تدوير R حول محور x بزاوية 360°.',en:'Curve y = 8/(5x+2)^(3/2). Region R bounded by x=-1, x=1/2, x-axis. Find volume of revolution when R is rotated 360° about x-axis.'},m:5,a:'depends',e:{ar:'V = 16π/5',en:'V = 16π/5'}},
+    {q:{ar:'ارتفاع الماء h في وعاء يحقق dh/dt = k/(h+4). عندما h=16، dh/dt=0.6. (أ) أوجد k. (ب) أوجد الزمن لملء الوعاء من فارغ إلى h=30. (ج) إذا كان معدل التدفق 96π cm³/s، أوجد الحجم عند h=30.',en:'Height of water h satisfies dh/dt = k/(h+4). When h=16, dh/dt=0.6. (a) Find k. (b) Find time to fill from empty to h=30. (c) Given flow rate 96π cm³/s, find volume when h=30.'},m:7,a:'depends',e:{ar:'(أ) k=12 (ب) 54s (ج) 5180 cm³',en:'(a) k=12 (b) 54s (c) 5180 cm³'}},
+    {q:{ar:'(i) أوجد تكامل 5e^(6x). (ii) حلل 4y/(y²-1) - 3/(y-1) إلى كسور جزئية ثم كمل. (iii) استخدم التكامل بالتجزئة لإيجاد تكامل x ln(4x) من 1 إلى 2.',en:'(i) Integrate 5e^(6x). (ii) Express in partial fractions and integrate. (iii) Use integration by parts to find integral of x ln(4x) from 1 to 2.'},m:14,a:'depends',e:{ar:'(i) 5/6 e^(6x) (ii) ln|y| ... (iii) 1/2 x² ln(4x) - 1/4 x²',en:'(i) 5/6 e^(6x) (ii) ln|y| ... (iii) 1/2 x² ln(4x) - 1/4 x²'}},
+    {q:{ar:'المنحنى C له المعادلات البارامترية x = -3 + 6sin(θ)، y = 4/3 cos(2θ). (أ) أوجد dy/dx. (ب) أثبت أن معادلة العمودي عند نقطة تقاطع y-axis هي 3x - 4y + 8√3 = 0. (ج) أوجد إحداثيات نقطة التقاطع الأخرى B.',en:'Curve C has parametric equations x = -3 + 6sin(θ), y = 4/3 cos(2θ). (a) Find dy/dx. (b) Show normal at y-axis intercept A is 3x - 4y + 8√3 = 0. (c) Find coords of intersection B.'},m:14,a:'depends',e:{ar:'(ج) B(3, -4/3)',en:'(c) B(3, -4/3)'}},
+    {q:{ar:'المستقيم l₁: r = (6, 13, 1) + μ(4, 5, -3). النقطة P(2, c, d) على l₁. النقطة A(6, -1, 7). (أ) أوجد المسافة PA. (ب) اكتب معادلة l₂ الموازي لـ l₁ والمار بـ A. (ج) أثبت أن cos(θ) = 9/10. (د) أوجد إحداثيات B على l₂ بحيث PA=PB.',en:'Line l₁: r = (6, 13, 1) + μ(4, 5, -3). P(2, c, d) on l₁. A(6, -1, 7). (a) Find distance PA. (b) Write eq for l₂ parallel to l₁ through A. (c) Show cos(θ) = 9/10. (d) Find coords of B on l₂ such that PA=PB.'},m:14,a:'depends',e:{ar:'(أ) 3√2 (د) إحداثيان محتملان لـ B',en:'(a) 3√2 (d) Two possible coords for B'}}
+  ]},
+
+  /* ═══════ MECHANICS M2 (Jan 2019) ═══════ */
+  {id:'m2_jan19',title:{ar:'🏗️ Mechanics M2 (Jan 2019)',en:'🏗️ Mechanics M2 (Jan 2019)'},tier:'ial',color:'#ef4444',code:{ar:'WME02/01 — ساعة ونصف — 75 درجة',en:'WME02/01 — 1h 30m — 75 Marks'},questions:[
+    {q:{ar:'ثلاث جسيمات كتلها 3m, m, 2m موضوعة عند النقاط (a,8), (-4,0), (5,-2). مركز الكتلة يقع عند (k, 2k). أوجد قيمة a.',en:'Three particles of masses 3m, m, 2m at (a,8), (-4,0), (5,-2). COM is at (k, 2k). Find a.'},m:5,a:'depends',e:{ar:'a = 2',en:'a = 2'}},
+    {q:{ar:'جسيم كتلته 0.75kg يتحرك بسرعة (4i+j) m/s ويحصل على دفعة (-6i+4j) Ns. (أ) أوجد سرعته الجديدة. (ب) أوجد زاوية الانحراف.',en:'Particle mass 0.75kg moving at (4i+j) m/s receives impulse (-6i+4j) Ns. (a) Find new velocity. (b) Find deflection angle.'},m:6,a:'depends',e:{ar:'(أ) (-4i + 19/3 j) (ب) 104°',en:'(a) (-4i + 19/3 j) (b) 104°'}},
+    {q:{ar:'سيارة كتلتها 900kg تتحرك على طريق منحدر بزاوية θ حيث sin(θ)=1/49. القدرة 10.8kW. صعوداً بسرعة v، ونزولاً بسرعة 2v. المقاومة R ثابتة. أوجد R و v.',en:'Car 900kg on incline sin(θ)=1/49. Power 10.8kW. Up at speed v, down at speed 2v. Resistance R is constant. Find R and v.'},m:8,a:'depends',e:{ar:'R = 450 N, v = 12 m/s',en:'R = 450 N, v = 12 m/s'}},
+    {q:{ar:'صفيحة L مكونة من قرص نصف قطره 4a بثقب نصف قطره 2a. (أ) أثبت أن مركز الكتلة يبعد 13/3 a عن B. (ب) كتلة kM عند B، علقت من D. tan(θ)=3/4. أوجد k.',en:'Lamina L: Disc radius 4a, hole radius 2a. (a) Show COM is 13/3 a from B. (b) Mass kM attached at B, suspended from D. tan(θ)=3/4. Find k.'},m:9,a:'depends',svg:'m2_q4',e:{ar:'(ب) k = 1.5',en:'(b) k = 1.5'}},
+    {q:{ar:'جسيم يتحرك على محور x بسرعة v = 2t^(3/2) - 6t + 2. التسارع يساوي صفراً عند النقطة A. أوجد المسافة OA.',en:'Particle moves along x-axis with v = 2t^(3/2) - 6t + 2. Acceleration is zero at A. Find distance OA.'},m:8,a:'depends',e:{ar:'OA = 4.5 m',en:'OA = 4.5 m'}},
+    {q:{ar:'لوح AB طوله 4m ووزنه 20N يرتكز على عمود عند C (AC=2.5m) وعلى أرض خشنة عند A. cos(θ)=4/5. الاحتكاك حدي عند A و C. (أ) أوجد رد الفعل العمودي عند C. (ب) أوجد معامل الاحتكاك عند العمود.',en:'Plank AB length 4m, weight 20N on pole at C (AC=2.5m) and rough ground at A. cos(θ)=4/5. Friction limiting at A and C. (a) Find normal reaction at C. (b) Find μ at pole.'},m:11,a:'depends',e:{ar:'(أ) 16 N (ب) μ = 0.4',en:'(a) 16 N (b) μ = 0.4'}},
+    {q:{ar:'الجسيم P(3m) سرعته u، و Q(2m) سرعته 2u في اتجاه معاكس. معامل الارتداد e. (أ) أثبت أن P يعكس اتجاهه. (ب) أوجد مدى e لكي يعكس Q اتجاهه. (ج) أوجد الطاقة الحركية المفقودة إذا e=1/2.',en:'P(3m) speed u, Q(2m) speed 2u opposite. Coeff restitution e. (a) Show P reverses. (b) Range of e for Q to reverse. (c) KE lost if e=1/2.'},m:13,a:'depends',e:{ar:'(ب) e > 1/4 (ج) 15/16 mu²',en:'(b) e > 1/4 (c) 15/16 mu²'}},
+    {q:{ar:'منحدر AB طوله 6m وزاويته 20°. P(3kg) قذف بسرعة 15 m/s ووصل B بسرعة 10 m/s. (أ) أوجد الاحتكاك F باستخدام الشغل-الطاقة. (ب) ضرب الأرض عند C. أوجد السرعة w والاتجاه. (ج) أوجد أقصى ارتفاع.',en:'Ramp AB 6m, 20°. P(3kg) projected at 15 m/s, reaches B at 10 m/s. (a) Find friction F using work-energy. (b) Hits ground at C. Find speed w and direction. (c) Greatest height.'},m:15,a:'depends',svg:'m2_q8',e:{ar:'(أ) F = 12.5 N (ب) w = 16.2 m/s (ج) 3.5 m',en:'(a) F = 12.5 N (b) w = 16.2 m/s (c) 3.5 m'}}
+  ]},
+
+  /* ═══════ MECHANICS M1 (Jun 2019) ═══════ */
+  {id:'m1_jun19',title:{ar:'⚖️ Mechanics M1 (Jun 2019)',en:'⚖️ Mechanics M1 (Jun 2019)'},tier:'ial',color:'#10b981',code:{ar:'6677/01 — ساعة ونصف — 75 درجة',en:'6677/01 — 1h 30m — 75 Marks'},questions:[
+    {q:{ar:'ثلاث قوى (pi+2j)N، (3i-qj)N، (qi+2pj)N تؤثر على جسيم كتلته 2kg وتسبب تسارعاً (i-3j) m/s². (أ) أوجد اتجاه التسارع كزاوية مسار. (ب) أوجد p و q.',en:'Three forces (pi+2j)N, (3i-qj)N, (qi+2pj)N act on 2kg particle causing acceleration (i-3j) m/s². (a) Find direction of acceleration as bearing. (b) Find p and q.'},m:8,a:'depends',e:{ar:'(أ) 288° (ب) p=1, q=4',en:'(a) 288° (b) p=1, q=4'}},
+    {q:{ar:'عارضة PQ طولها 4m وكتلتها 60kg. حمل كتلته 30kg عند Q. حبلان عند P و R (RO=x). التوتر عند R = 4 × التوتر عند P. (أ) أوجد التوتر عند P. (ب) أوجد x.',en:'Girder PQ length 4m, mass 60kg. Load 30kg at Q. Ropes at P and R (RO=x). Tension at R = 4 * Tension at P. (a) Find tension at P. (b) Find x.'},m:7,a:'depends',e:{ar:'(أ) 176.4 N (ب) x = 2.8 m',en:'(a) 176.4 N (b) x = 2.8 m'}},
+    {q:{ar:'صاروخ لعبة يُقذف رأسياً من السكون بتسارع 2.8 m/s². بعد 5.25s ينفد الوقود ويتحرك تحت الجاذبية. (أ) أوجد الزمن الكلي T لأقصى ارتفاع. (ب) ارسم منحنى السرعة-الزمن.',en:'Toy rocket fired vertically from rest at 2.8 m/s². After 5.25s fuel runs out, moves under gravity. (a) Find total time T to max height. (b) Sketch velocity-time graph.'},m:7,a:'depends',e:{ar:'(أ) T = 6.72 s',en:'(a) T = 6.72 s'}},
+    {q:{ar:'تصادم P(m) و Q(4m). قبل التصادم يتحركان نحو بعضهما. بعد التصادم: اتجاه P مثل Q، سرعة P هي 3u وسرعة Q هي u/2. الدفع على P هو 8mu. (أ) سبب انعكاس P. (ب) سرعة P قبل التصادم. (ج) سرعة Q قبل التصادم.',en:'Collision P(m) and Q(4m). Moving towards each other. After: P same dir as Q, speed P=3u, speed Q=u/2. Impulse on P is 8mu. (a) Reason P reverses. (b) Speed of P before. (c) Speed of Q before.'},m:7,a:'depends',e:{ar:'(ب) 5u (ج) 3u/2',en:'(b) 5u (c) 3u/2'}},
+    {q:{ar:'حلقة P كتلتها 0.5kg على سلك رأسي خشن. خيط بزاوية α حيث tan(α)=3/4. μ=1/4. (أ) إذا كانت على وشك الصعود، أوجد التوتر. (ب) أوجد أقل توتر للاتزان.',en:'Ring P mass 0.5kg on rough vertical wire. String at angle α where tan(α)=3/4. μ=1/4. (a) On point of sliding up, find tension. (b) Find smallest tension for equilibrium.'},m:11,a:'depends',e:{ar:'(أ) 6.53 N (ب) 3.92 N',en:'(a) 6.53 N (b) 3.92 N'}},
+    {q:{ar:'سفينتان P و Q. سرعة P هي (3i-2j) وسرعة Q هي (5i+6j). عند 9am: P عند (i+4j) و Q عند (7i+8j). (أ) متجهات الموضع عند t. (ب) أثبت أن متجه PQ هو (-6-2t)i + (-4-8t)j. (ج) المسافة عندما P جنوب غرب Q.',en:'Ships P and Q. Vel P=(3i-2j), Vel Q=(5i+6j). At 9am: P at (i+4j), Q at (7i+8j). (a) Position vectors at t. (b) Show PQ is (-6-2t)i + (-4-8t)j. (c) Distance when P is SW of Q.'},m:10,a:'depends',e:{ar:'(ج) 5√2 km',en:'(c) 5√2 km'}},
+    {q:{ar:'سيارة تتحرك بسرعة ثابتة. الفرامل تعطي تباطؤ 5 m/s². تأخر السائق 0.5s. (أ) أثبت أن سرعتها عند S هي 2.5 m/s. (ب) المسافة بعد S. (ج) إذا كانت السرعة 64.8 km/h والزمن الكلي 4.2s، أوجد المسافة من رؤية الإشارة إلى S.',en:'Car constant speed. Brakes decelerate at 5 m/s². Reaction time 0.5s. (a) Show speed at S is 2.5 m/s. (b) Distance past S. (c) If speed 64.8 km/h and total time 4.2s, find distance to S.'},m:11,a:'depends',e:{ar:'(ج) 36 m',en:'(c) 36 m'}},
+    {q:{ar:'بكرة: A(3m) و B(m). A على ارتفاع h. (أ) معادلات الحركة. (ب) أثبت أن a=0.5g. (ج) استخدام الخيط غير المرن. (د) السرعة V قبل الارتطام. (هـ) الدفع. (و) الارتفاع بعد الارتداد.',en:'Pulley: A(3m) and B(m). A at height h. (a) Eq of motion. (b) Show a=0.5g. (c) Use inextensible string. (d) Speed V before hit. (e) Impulse. (f) Height after rebound.'},m:14,a:'depends',e:{ar:'(د) V = √(gh) (هـ) 3m√(gh)',en:'(d) V = √(gh) (e) 3m√(gh)'}}
+  ]},
+
+  /* ═══════ STATISTICS S2 (Oct 2016) ═══════ */
+  {id:'s2_oct16',title:{ar:'📈 Statistics S2 (Oct 2016)',en:'📈 Statistics S2 (Oct 2016)'},tier:'ial',color:'#8b5cf6',code:{ar:'WST02/01 — ساعة ونصف — 75 درجة',en:'WST02/01 — 1h 30m — 75 Marks'},questions:[
+    {q:{ar:'شركة تدعي أن 5% من الهواتف تُسرق. عينة 30، سرق 4. (أ) اختبر الادعاء عند 10%. (ب) عينة 90، استخدم التقريب لإيجاد المنطقة الحرجة عند 10%.',en:'Company claims 5% stolen. Sample 30, 4 stolen. (a) Test at 10%. (b) Sample 90, use approx to find critical region at 10%.'},m:10,a:'depends',e:{ar:'(أ) لا يوجد دليل كاف لرفض H0 (ب) X >= 8',en:'(a) No evidence to reject H0 (b) X >= 8'}},
+    {q:{ar:'عمر البطارية T. دالة التوزيع التراكمي F(t) معطاة. (أ) أثبت أن k=-432. (ب) أوجد PDF. (ج) المنوال. (د) الوسيط. (هـ) P(T<9). (و) P(T<11 | T>=9).',en:'Battery life T. CDF F(t) given. (a) Show k=-432. (b) Find PDF. (c) Mode. (d) Median. (e) P(T<9). (f) P(T<11 | T>=9).'},m:14,a:'depends',e:{ar:'(ج) 8 (د) 10 (هـ) 0.4375',en:'(c) 8 (d) 10 (e) 0.4375'}},
+    {q:{ar:'40% من الطلاب أجابوا على سؤال بشكل صحيح. عينة 20 طالباً. X هو عدد الإجابات الصحيحة. (أ) توزيع X. (ب) P(4<=X<9). (ج) 7 نقاط للصحيح، -3 للخطأ. P(المجموع > 0). (د) التباين.',en:'40% answered correctly. Sample 20. X is number correct. (a) Dist of X. (b) P(4<=X<9). (c) 7 points correct, -3 wrong. P(Total > 0). (d) Variance.'},m:10,a:'depends',e:{ar:'(أ) B(20, 0.4) (ج) P(X>6) = 0.746',en:'(a) B(20, 0.4) (c) P(X>6) = 0.746'}},
+    {q:{ar:'متغير متصل X له PDF مثلثي من 0 إلى 5، ثم ثابت k من 5 إلى 10.5. (أ) أثبت k=1/8 وأوجد m. (ب) E(X). (ج) المدى الربيعي.',en:'Continuous RV X has triangular PDF 0 to 5, then constant k from 5 to 10.5. (a) Show k=1/8 and find m. (b) E(X). (c) IQR.'},m:10,a:'depends',e:{ar:'(ب) 6.17 (ج) 4.5',en:'(b) 6.17 (c) 4.5'}},
+    {q:{ar:'خيط طوله 40cm يقطع عشوائياً. L هو طول القطعة الأطول. (أ) توزيع L. (ب) P(L=28 لأقرب cm). (ج) P(مساحة المربع الأكبر < 64). (د) P(فرق المساحتين > 81).',en:'String 40cm cut randomly. L is length of longer piece. (a) Dist of L. (b) P(L=28 to nearest cm). (c) P(area larger square < 64). (d) P(diff in areas > 81).'},m:11,a:'depends',e:{ar:'(أ) U(20, 40) (ج) 0.4 (د) 0.1',en:'(a) U(20, 40) (c) 0.4 (d) 0.1'}},
+    {q:{ar:'انقطاع الكهرباء بمعدل λ كل 10 أسابيع. (أ) P(<2 في 10 أسابيع). (ب) P(1 في 5 أسابيع). (ج) في 100 أسبوع، P(<15) = 0.0179. أوجد λ باستخدام التقريب الطبيعي.',en:'Power failures rate λ per 10 weeks. (a) P(<2 in 10 weeks). (b) P(1 in 5 weeks). (c) In 100 weeks, P(<15) = 0.0179. Find λ using Normal approx.'},m:12,a:'depends',e:{ar:'(ج) λ = 2.5',en:'(c) λ = 2.5'}},
+    {q:{ar:'آيس كريم بنسبة 5:2:1 (1:2:3 سكوب). عينة 2. S هو مجموع السكوب. (أ) توزيع المعاينة لـ S. (ب) عينة n، P(>n سكوب) > 0.99. أوجد أقل n.',en:'Ice cream ratio 5:2:1 (1:2:3 scoops). Sample 2. S is total scoops. (a) Sampling dist of S. (b) Sample n, P(>n scoops) > 0.99. Find min n.'},m:8,a:'depends',e:{ar:'(ب) n = 1',en:'(b) n = 1'}}
+  ]},
+
+  /* ═══════ CORE MATHEMATICS C12 (Oct 2016) ═══════ */
+  {id:'c12_oct16',title:{ar:'∑ Core Mathematics C12 (Oct 2016)',en:'∑ Core Mathematics C12 (Oct 2016)'},tier:'ial',color:'#3b82f6',code:{ar:'WMA01/01 — ساعتان ونصف — 125 درجة',en:'WMA01/01 — 2h 30m — 125 Marks'},questions:[
+    {q:{ar:'f(x) = 3x^(-2) + 6x^(-1/2) - 4. أوجد تكامل f(x) مبسطاً كل حد.',en:'f(x) = 3x^(-2) + 6x^(-1/2) - 4. Find integral of f(x) simplifying each term.'},m:5,a:'depends',e:{ar:'-3x^(-1) + 12x^(1/2) - 4x + c',en:'-3x^(-1) + 12x^(1/2) - 4x + c'}},
+    {q:{ar:'(أ) أوجد x حيث 7^(2x) = 14. (ب) أوجد x حيث log₅(3x+1) = -2.',en:'(a) Find x where 7^(2x) = 14. (b) Find x where log₅(3x+1) = -2.'},m:5,a:'depends',e:{ar:'(أ) x = 0.656 (ب) x = -0.32',en:'(a) x = 0.656 (b) x = -0.32'}},
+    {q:{ar:'بدون آلة حاسبة: (i) أثبت أن √45 - √20 + 5/√6 = √30 / 5. (ii) أثبت أن 17 / (2√2 + 6) = 3 - √2.',en:'Without calculator: (i) Show √45 - √20 + 5/√6 = √30 / 5. (ii) Show 17 / (2√2 + 6) = 3 - √2.'},m:5,a:'depends',e:{ar:'توحيد المقامات والضرب في المرافق',en:'Common denominators and multiplying by conjugate'}},
+    {q:{ar:'f(x) = 6x³ - 7x² - 43x + 30. (أ) الباقي عند القسمة على (2x+1) و (x-3). (ب) حلل f(x) تماماً.',en:'f(x) = 6x³ - 7x² - 43x + 30. (a) Remainder when divided by (2x+1) and (x-3). (b) Factorise f(x) completely.'},m:8,a:'depends',e:{ar:'(أ) 54, -48 (ب) (2x-1)(3x+5)(x-6)',en:'(a) 54, -48 (b) (2x-1)(3x+5)(x-6)'}},
+    {q:{ar:'مفكوك (3 - ax/2)^5. (أ) الحدود الأربعة الأولى. (ب) إذا كان معامل x يساوي معامل x³، أوجد a.',en:'Expansion of (3 - ax/2)^5. (a) First 4 terms. (b) If coeff of x equals coeff of x³, find a.'},m:7,a:'depends',e:{ar:'(ب) a = 2/3',en:'(b) a = 2/3'}},
+    {q:{ar:'متتابعة هندسية u₁=36، uₙ₊₁ = 2/3 uₙ. (أ) u₂, u₃, u₄. (ب) النسبة المشتركة. (ج) u₁₁. (د) مجموع أول 6 حدود. (هـ) مجموع اللانهاية.',en:'Geometric seq u₁=36, uₙ₊₁ = 2/3 uₙ. (a) u₂, u₃, u₄. (b) Common ratio. (c) u₁₁. (d) Sum of first 6 terms. (e) Sum to infinity.'},m:9,a:'depends',e:{ar:'(ب) 2/3 (ج) 3.125 (د) 96.8 (هـ) 108',en:'(b) 2/3 (c) 3.125 (d) 96.8 (e) 108'}},
+    {q:{ar:'y = 3^(x-2). (أ) ارسم المنحنى. (ب) استخدم قاعدة شبه المنحرف للجدول المعطى لتقدير تكامل 3^(x-2) من 0.5 إلى 3.',en:'y = 3^(x-2). (a) Sketch graph. (b) Use trapezium rule with given table to estimate integral of 3^(x-2) from 0.5 to 3.'},m:6,a:'depends',e:{ar:'التقريب = 2.15',en:'Approx = 2.15'}},
+    {q:{ar:'شكل مركب: مثلث ABD وقطاع DBC. AB=5, BC=6, زاوية DAB=1.1 rad. (أ) أثبت أن ABD=1.20 rad. (ب) أوجد المساحة الكلية.',en:'Compound shape: Triangle ABD and sector DBC. AB=5, BC=6, angle DAB=1.1 rad. (a) Show ABD=1.20 rad. (b) Find total area.'},m:8,a:'depends',e:{ar:'(ب) 22.6 cm²',en:'(b) 22.6 cm²'}},
+    {q:{ar:'مسرح بـ 20 صفاً. متتابعة حسابية. مجموع أول 10 صفوف = 395. مجموع أول 18 = 927. (أ) أثبت 10a+45d=395. (ب) معادلة ثانية. (ج) أوجد a و d. (د) عدد المقاعد في الصف 20.',en:'Theatre 20 rows. Arithmetic seq. Sum first 10 = 395. Sum first 18 = 927. (a) Show 10a+45d=395. (b) Second eq. (c) Find a and d. (d) Seats in 20th row.'},m:8,a:'depends',e:{ar:'(ج) a=26, d=3 (د) 83',en:'(c) a=26, d=3 (d) 83'}},
+    {q:{ar:'(أ) أثبت أن 8tan(x) = -3cos(x) تكافئ 3sin²(x) - 8sin(x) - 3 = 0. (ب) حل 8tan(2θ) = -3cos(2θ) لـ 0 < θ < 360°.',en:'(a) Show 8tan(x) = -3cos(x) is 3sin²(x) - 8sin(x) - 3 = 0. (b) Solve 8tan(2θ) = -3cos(2θ) for 0 < θ < 360°.'},m:8,a:'depends',e:{ar:'(ب) θ = 54.7°, 125.3°, 234.7°, 305.3°',en:'(b) θ = 54.7°, 125.3°, 234.7°, 305.3°'}},
+    {q:{ar:'المعادلة 5x² + 6 = k(13x² - 12x) لها جذران حقيقيان مختلفان. (أ) أثبت 6k² + 13k - 5 > 0. (ب) أوجد قيم k الممكنة.',en:'Eq 5x² + 6 = k(13x² - 12x) has two distinct real roots. (a) Show 6k² + 13k - 5 > 0. (b) Find set of possible values for k.'},m:8,a:'depends',e:{ar:'(ب) k < -5/2 أو k > 1/3',en:'(b) k < -5/2 or k > 1/3'}},
+    {q:{ar:'y = (x³ - 9x) / (x² - 27). (أ) أوجد جذور A و B. (ب) استخدم التفاضل لإيجاد النقطتين C و D. (ج) إذا كان y=f(x+a) له نقطة صغرى على محور y، أوجد a.',en:'y = (x³ - 9x) / (x² - 27). (a) Find roots A and B. (b) Use calculus to find turning points C and D. (c) If y=f(x+a) has min on y-axis, find a.'},m:11,a:'depends',e:{ar:'(أ) 0, ±3 (ج) a = 3',en:'(a) 0, ±3 (c) a = 3'}},
+    {q:{ar:'دائرة مركزها A(1,-3) وتمر بـ P(8,-2). (أ) معادلة الدائرة. (ب) المماس l₁ عند P. (ج) المماس l₂: y=x+6 عند Q. أوجد إحداثيات Q.',en:'Circle centre A(1,-3) passes through P(8,-2). (a) Eq of circle. (b) Tangent l₁ at P. (c) Tangent l₂: y=x+6 at Q. Find coords of Q.'},m:13,a:'depends',e:{ar:'(أ) (x-1)²+(y+3)²=50 (ج) Q(5, 11) أو (-3, 3)',en:'(a) (x-1)²+(y+3)²=50 (c) Q(5, 11) or (-3, 3)'}},
+    {q:{ar:'المنحنى C: y = -x² + 6x - 8. العمودي l عند P(5,-3). (أ) معادلة l. (ب) المساحة R المحصورة بـ l، C، ومحور x.',en:'Curve C: y = -x² + 6x - 8. Normal l at P(5,-3). (a) Eq of l. (b) Area R bounded by l, C, and x-axis.'},m:11,a:'depends',e:{ar:'(أ) x - 4y - 17 = 0 (ب) 8/3',en:'(a) x - 4y - 17 = 0 (b) 8/3'}},
+    {q:{ar:'كتلة خشبية على شكل موشور نصف دائري. مساحة السطح الكلية 200. (أ) أثبت أن V = (πr²/4)(200-πr²)/(πr+2). (ب) أوجد القيمة العظمى لـ V. (ج) أثبت أنها عظمى.',en:'Wooden block semi-circular prism. Total surface area 200. (a) Show V formula. (b) Find max V. (c) Justify max.'},m:13,a:'depends',e:{ar:'(ب) V ≈ 214 cm³',en:'(b) V ≈ 214 cm³'}}
+  ]}
+];
+
+/* ═══════════════════════ ENGINE (Identical Logic) ═══════════════════════ */
+function buildQuestionIndex() {
+  allQuestions = [];
+  let totalCount = 0;
+  examData.forEach(p => {
+    p.questions.forEach((q, i) => {
+      allQuestions.push({paperId: p.id, questionIndex: i, id: `${p.id}-q${i}`});
+      totalCount++;
+    });
+  });
+  document.getElementById('total-questions-count').textContent = totalCount;
+}
+
+function saveState() {
+  const state = {
+    answers: {},
+    studentInfo: {
+      name: document.getElementById('studentName').value,
+      class: document.getElementById('studentClass').value,
+      date: document.getElementById('examDate').value
+    },
+    lang: currentLang,
+    darkMode: document.documentElement.classList.contains('dark'),
+    timeRemaining: timeRemaining
+  };
+  document.querySelectorAll('.answer-input').forEach(i => {
+    const c = i.closest('.question-card');
+    if (c) state.answers[c.id] = i.value;
+  });
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : null;
+  } catch(e) { return null; }
+}
+
+function restoreState(state) {
+  if (!state) return;
+  if (state.answers) {
+    document.querySelectorAll('.answer-input').forEach(i => {
+      const c = i.closest('.question-card');
+      if (c && state.answers[c.id] !== undefined) {
+        i.value = state.answers[c.id];
+        checkAnswer(i);
+      }
+    });
+  }
+  if (state.studentInfo) {
+    if (state.studentInfo.name) document.getElementById('studentName').value = state.studentInfo.name;
+    if (state.studentInfo.class) document.getElementById('studentClass').value = state.studentInfo.class;
+    if (state.studentInfo.date) document.getElementById('examDate').value = state.studentInfo.date;
+  }
+  if (state.darkMode) toggleDarkMode(true);
+  if (state.timeRemaining && state.timeRemaining > 0) timeRemaining = state.timeRemaining;
+}
+
+function saveStudentInfo() { saveState(); }
+
+function renderSidebar() {
+  const sb = document.getElementById('sidebar');
+  let html = `<div class="sidebar-title">${T.sidebar_title[currentLang]}</div>`;
+  examData.forEach(p => {
+    const answeredCount = countAnsweredInPaper(p.id);
+    html += `<div class="sidebar-session">${p.title[currentLang]} <span class="answered-counter">${answeredCount}/${p.questions.length}</span></div>`;
+    p.questions.forEach((q, i) => {
+      const qId = `${p.id}-q${i}`;
+      const card = document.getElementById(qId);
+      let statusClass = '';
+      if (card) {
+        if (card.classList.contains('correct')) statusClass = 'answered correct';
+        else if (card.classList.contains('incorrect')) statusClass = 'answered incorrect';
+        else if (card.querySelector('.answer-input')?.value) statusClass = 'answered';
+      }
+      html += `<a href="#${qId}" class="sidebar-link ${statusClass}">${T.q_word[currentLang]} ${i+1} (${q.m}${T.marks[currentLang].charAt(0)})</a>`;
+    });
+  });
+  sb.innerHTML = html;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function renderExam() {
+  const c = document.getElementById('exam-content');
+  let html = '';
+  examData.forEach(p => {
+    html += `<section id="${p.id}" class="page-break">
+      <div class="section-header" style="background:linear-gradient(135deg,${p.color},${p.color}cc);">
+        <h2><span class="paper-badge">📄 ${p.title[currentLang]}</span>
+        <span style="opacity:0.9;font-size:0.8rem;">${p.code[currentLang]}</span>
+        — ${p.questions.length} ${T.questions_word[currentLang]}</h2>
+      </div>`;
+    p.questions.forEach((q, i) => {
+      const qId = `${p.id}-q${i}`;
+      const svgHtml = q.svg && SVG_FIGURES[q.svg] ? SVG_FIGURES[q.svg] : '';
+      html += `<div class="question-card" id="${qId}">
+        <p style="margin:0 0 6px;">
+          <strong>${T.q_word[currentLang]} ${i+1}.</strong>
+          ${escapeHtml(q.q[currentLang])}
+          <span class="marks-badge">${q.m} ${T.marks[currentLang]}</span>
+        </p>
+        ${svgHtml}
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px;">
+          <input type="text" class="answer-input" data-answer="${escapeHtml(q.a)}" data-paper="${p.id}"
+                 placeholder="${T.answer_ph[currentLang]}" oninput="handleAnswerInput(this)">
+          <button class="reveal-btn" onclick="toggleSubAnswer(this)">👁️</button>
+        </div>
+        <div class="answer-box hidden">✅ ${escapeHtml(q.e[currentLang])}</div>
+      </div>`;
+    });
+    html += `</section>`;
+  });
+  c.innerHTML = html;
+  document.querySelectorAll('.svg-caption').forEach(el => {
+    el.innerHTML = currentLang === 'ar' ? el.getAttribute('data-cap-ar') : el.getAttribute('data-cap-en');
+  });
+}
+
+function setLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.body.classList.toggle('en-mode', lang === 'en');
+  const elements = {
+    'time-label':'time_label','st-papers':'st_papers','st-questions':'st_questions',
+    'st-answered':'st_answered','st-marks':'st_marks','btn-toggle':'btn_toggle',
+    'btn-print':'btn_print','btn-expand':'btn_expand','btn-collapse':'btn_collapse',
+    'btn-submit':'btn_submit','btn-export':'btn_export','btn-reset':'btn_reset',
+    'btn-share':'btn_share','h-title':'h_title','h-sub':'h_sub','h-papers':'h_papers',
+    'h-warn':'h_warn','res-title':'res_title','rl-name':'rl_name','rl-date':'rl_date',
+    'rl-total':'rl_total','rl-rate':'rl_rate','btn-printres':'btn_printres',
+    'modal-title':'reset_title','modal-message':'reset_message'
+  };
+  Object.entries(elements).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el && T[key]) el.innerHTML = T[key][lang];
+  });
+  document.getElementById('studentName').placeholder = T.ph_name[lang];
+  document.getElementById('studentClass').placeholder = T.ph_class[lang];
+  document.getElementById('examDate').placeholder = T.ph_date[lang];
+  const st = {};
+  document.querySelectorAll('.answer-input').forEach(i => {
+    const c = i.closest('.question-card');
+    if (c) st[c.id] = i.value;
+  });
+  renderSidebar(); renderExam();
+  document.querySelectorAll('.answer-input').forEach(i => {
+    const c = i.closest('.question-card');
+    if (c && st[c.id] !== undefined) {
+      i.value = st[c.id];
+      checkAnswer(i);
+    }
+  });
+  updateProgress();
+  saveState();
+}
+
+function toggleSubAnswer(btn) {
+  const ab = btn.closest('.question-card').querySelector('.answer-box');
+  if (ab) ab.classList.toggle('hidden');
+}
+function toggleAllAnswers() {
+  answersVisible = !answersVisible;
+  document.querySelectorAll('.answer-box').forEach(el => el.classList.toggle('hidden', !answersVisible));
+}
+function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+function collapseAll() { document.querySelectorAll('.answer-box').forEach(b => b.classList.add('hidden')); answersVisible = false; }
+function expandAll() { document.querySelectorAll('.answer-box').forEach(b => b.classList.remove('hidden')); answersVisible = true; }
+
+function toggleDarkMode(forceOn) {
+  const isDark = document.documentElement.classList.contains('dark');
+  if (forceOn !== undefined) document.documentElement.classList.toggle('dark', forceOn);
+  else document.documentElement.classList.toggle('dark', !isDark);
+  const darkBtn = document.getElementById('darkModeBtn');
+  if (darkBtn) darkBtn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+  saveState();
+}
+
+function showToast(message, duration = 2000) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+function confirmReset() { document.getElementById('resetModal').classList.add('show'); }
+function closeModal() { document.getElementById('resetModal').classList.remove('show'); }
+
+function resetExam() {
+  document.querySelectorAll('.answer-input').forEach(i => {
+    i.value = '';
+    i.classList.remove('is-correct', 'is-incorrect');
+    const card = i.closest('.question-card');
+    if (card) card.classList.remove('correct', 'incorrect');
+  });
+  document.getElementById('studentName').value = '';
+  document.getElementById('studentClass').value = '';
+  document.getElementById('examDate').value = '';
+  document.getElementById('results-panel').classList.add('hidden');
+  collapseAll();
+  updateProgress();
+  saveState();
+  renderSidebar();
+  closeModal();
+  showToast(T.reset_success[currentLang]);
+}
+
+function exportData() {
+  const state = loadState() || {answers: {}, studentInfo: {}};
+  document.querySelectorAll('.answer-input').forEach(i => {
+    const c = i.closest('.question-card');
+    if (c) state.answers[c.id] = i.value;
+  });
+  state.studentInfo = {
+    name: document.getElementById('studentName').value,
+    class: document.getElementById('studentClass').value,
+    date: document.getElementById('examDate').value
+  };
+  state.exportDate = new Date().toISOString();
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Edexcel_IAL_Math_2016_2019_${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast(T.export_success[currentLang]);
+}
+
+function normalize(s) {
+  if (!s) return '';
+  return s.toLowerCase().replace(/\s+/g, '').replace(/[×*]/g, '*').replace(/[−]/g, '-')
+    .replace(/،/g, ',').replace(/÷/g, '/').replace(/²/g, '^2').replace(/³/g, '^3')
+    .replace(/√/g, 'sqrt').replace(/π/g, 'pi').replace(/∛/g, 'cbrt').replace(/%/g,'')
+    .replace(/\[/g,'').replace(/\]/g,'').replace(/\(/g,'').replace(/\)/g,'');
+}
+
+function checkAnswer(input) {
+  const correct = input.dataset.answer;
+  const user = input.value.trim();
+  const card = input.closest('.question-card');
+  if (!correct || correct === 'shown' || correct === 'depends' || correct === 'construction' || correct === 'proof' || correct === 'tree' || correct === 'drawing' || correct === 'coords' || correct === 'description' || !user) {
+    card.classList.remove('correct', 'incorrect');
+    input.classList.remove('is-correct', 'is-incorrect');
+    updateProgress(); renderSidebar(); return;
+  }
+  const cn = normalize(correct);
+  const un = normalize(user);
+  const parts = cn.split(',').map(p => p.trim()).filter(p => p.length > 0);
+  let isCorrect = false;
+  if (un === cn) isCorrect = true;
+  if (!isCorrect) {
+    const userParts = un.split(',').map(p => p.trim()).filter(p => p.length > 0);
+    if (userParts.length > 0 && userParts.every(up => parts.some(cp => up === cp || cp.includes(up) || up.includes(cp)))) {
+      isCorrect = true;
+    }
+  }
+  if (!isCorrect) {
+    const userNum = parseFloat(un);
+    if (!isNaN(userNum)) {
+      for (const part of parts) {
+        const partNum = parseFloat(part);
+        if (!isNaN(partNum)) {
+          const tolerance = Math.abs(partNum * 0.02) + 0.01;
+          if (Math.abs(userNum - partNum) <= tolerance) { isCorrect = true; break; }
+        }
+      }
+    }
+  }
+  if (isCorrect) {
+    card.classList.add('correct'); card.classList.remove('incorrect');
+    input.classList.add('is-correct'); input.classList.remove('is-incorrect');
+  } else {
+    card.classList.add('incorrect'); card.classList.remove('correct');
+    input.classList.add('is-incorrect'); input.classList.remove('is-correct');
+  }
+  updateProgress(); renderSidebar(); saveState();
+}
+
+function handleAnswerInput(input) { checkAnswer(input); }
+
+function countAnsweredInPaper(paperId) {
+  let count = 0;
+  document.querySelectorAll(`.answer-input[data-paper="${paperId}"]`).forEach(i => {
+    if (i.value.trim()) count++;
+  });
+  return count;
+}
+
+function updateProgress() {
+  const inputs = document.querySelectorAll('.answer-input');
+  let answered = 0;
+  inputs.forEach(i => { if (i.value.trim()) answered++; });
+  const pct = inputs.length > 0 ? Math.round(answered / inputs.length * 100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '%';
+  document.getElementById('answered-count').textContent = answered;
+}
+
+function navigateQuestion(direction) {
+  if (allQuestions.length === 0) return;
+  currentQuestionIndex = (currentQuestionIndex + direction + allQuestions.length) % allQuestions.length;
+  const q = allQuestions[currentQuestionIndex];
+  const el = document.getElementById(q.id);
+  if (el) {
+    el.scrollIntoView({behavior: 'smooth', block: 'start'});
+    el.classList.add('ring-2', 'ring-blue-400');
+    setTimeout(() => el.classList.remove('ring-2', 'ring-blue-400'), 1500);
+  }
+}
+
+function gradeExam() {
+  let totalCorrect = 0, totalQ = 0, totalMarks = 0, earnedMarks = 0;
+  document.querySelectorAll('.answer-input').forEach(input => {
+    totalQ++;
+    const card = input.closest('.question-card');
+    const correct = input.dataset.answer;
+    const user = input.value.trim();
+    const marks = parseInt(card.querySelector('.marks-badge').textContent);
+    totalMarks += marks;
+    if (correct && correct !== 'shown' && correct !== 'depends' && correct !== 'construction' && correct !== 'proof' && correct !== 'tree' && correct !== 'drawing' && correct !== 'coords' && correct !== 'description' && user) {
+      const cn = normalize(correct);
+      const un = normalize(user);
+      const parts = cn.split(',').map(p => p.trim()).filter(p => p.length > 0);
+      let isCorrect = false;
+      if (un === cn) isCorrect = true;
+      if (!isCorrect) {
+        const userParts = un.split(',').map(p => p.trim()).filter(p => p.length > 0);
+        if (userParts.length > 0 && userParts.every(up => parts.some(cp => up === cp || cp.includes(up) || up.includes(cp)))) {
+          isCorrect = true;
+        }
+      }
+      if (!isCorrect) {
+        const userNum = parseFloat(un);
+        if (!isNaN(userNum)) {
+          for (const part of parts) {
+            const partNum = parseFloat(part);
+            if (!isNaN(partNum)) {
+              const tolerance = Math.abs(partNum * 0.02) + 0.01;
+              if (Math.abs(userNum - partNum) <= tolerance) { isCorrect = true; break; }
+            }
+          }
+        }
+      }
+      if (isCorrect) {
+        totalCorrect++;
+        earnedMarks += marks;
+        if (card) { card.classList.add('correct'); card.classList.remove('incorrect'); }
+      } else {
+        if (card) { card.classList.add('incorrect'); card.classList.remove('correct'); }
+      }
+    }
+  });
+  const score = totalMarks > 0 ? Math.round(earnedMarks / totalMarks * 100) : 0;
+  document.getElementById('res-name').textContent = document.getElementById('studentName').value || T.student_default[currentLang];
+  document.getElementById('res-date').textContent = document.getElementById('examDate').value || new Date().toLocaleDateString();
+  document.getElementById('res-total').textContent = `${earnedMarks} / ${totalMarks}`;
+  document.getElementById('success-percent').textContent = score + '%';
+  const badge = document.getElementById('success-badge');
+  if (score >= 90) { badge.textContent = T.grade_excellent[currentLang]; badge.className = 'success-badge grade-excellent'; }
+  else if (score >= 75) { badge.textContent = T.grade_good[currentLang]; badge.className = 'success-badge grade-good'; }
+  else if (score >= 50) { badge.textContent = T.grade_pass[currentLang]; badge.className = 'success-badge grade-pass'; }
+  else { badge.textContent = T.grade_fail[currentLang]; badge.className = 'success-badge grade-fail'; }
+  document.getElementById('results-panel').classList.remove('hidden');
+  document.getElementById('results-panel').scrollIntoView({behavior: 'smooth'});
+  renderSidebar();
+}
+
+function shareResults() {
+  const name = document.getElementById('res-name').textContent;
+  const total = document.getElementById('res-total').textContent;
+  const percent = document.getElementById('success-percent').textContent;
+  const badge = document.getElementById('success-badge').textContent;
+  const text = `🎓 نتائج Edexcel IAL Math 2016-2019\n👤 ${name}\n📊 ${total} (${percent})\n🏆 ${badge}\n\nPrepared by Mr. Mohammed Hesham`;
+  if (navigator.share) {
+    navigator.share({title: 'نتائج الامتحان', text: text}).catch(() => copyToClipboard(text));
+  } else { copyToClipboard(text); }
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => showToast(T.copy_success[currentLang])).catch(() => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    try { document.execCommand('copy'); showToast(T.copy_success[currentLang]); } catch(e) {}
+    document.body.removeChild(textarea);
+  });
+}
+
+function formatTime(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function updateTimerDisplay() {
+  const display = document.getElementById('timerDisplay');
+  if (display) {
+    display.textContent = formatTime(timeRemaining);
+    if (timeRemaining <= 600) display.classList.add('warning');
+    else display.classList.remove('warning');
+  }
+}
+
+function startTimer() {
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    if (!timerRunning) return;
+    timeRemaining--;
+    updateTimerDisplay();
+    if (timeRemaining <= 0) {
+      clearInterval(timerInterval);
+      alert(T.timeup[currentLang]);
+      gradeExam();
+    }
+    if (timeRemaining % 30 === 0) saveState();
+  }, 1000);
+}
+
+function toggleTimer() {
+  timerRunning = !timerRunning;
+  const btn = document.getElementById('timerToggle');
+  if (btn) btn.textContent = timerRunning ? '⏸️' : '▶️';
+}
+
+document.addEventListener('click', function(e) {
+  if (e.target.matches('a[href^="#"]')) {
+    e.preventDefault();
+    const href = e.target.getAttribute('href');
+    if (href && href.length > 1) {
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({behavior: 'smooth', block: 'start'});
+        const qId = href.substring(1);
+        const idx = allQuestions.findIndex(q => q.id === qId);
+        if (idx !== -1) currentQuestionIndex = idx;
+      }
+    }
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.altKey && e.key === 'ArrowLeft') { navigateQuestion(currentLang === 'ar' ? 1 : -1); e.preventDefault(); }
+  if (e.altKey && e.key === 'ArrowRight') { navigateQuestion(currentLang === 'ar' ? -1 : 1); e.preventDefault(); }
+  if (e.ctrlKey && e.key === 's') { saveState(); showToast(T.save_success[currentLang]); e.preventDefault(); }
+});
+
+setInterval(saveState, 10000);
+window.addEventListener('beforeunload', saveState);
+
+window.addEventListener('DOMContentLoaded', () => {
+  buildQuestionIndex();
+  renderSidebar();
+  renderExam();
+  const savedState = loadState();
+  if (savedState) {
+    restoreState(savedState);
+    if (savedState.lang) setLanguage(savedState.lang);
+  }
+  startTimer();
+  updateProgress();
+});
+</script>
+</body>
+</html>
